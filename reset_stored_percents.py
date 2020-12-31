@@ -6,8 +6,7 @@ from program_variables import PERCENT_STORE, get_consolidated_filtered_data
 
 def reset_percentages(window):
     percentages = []
-    with open(PERCENT_STORE, mode='r') as infile:
-        percentages = percentages + list(DictReader(infile, delimiter=','))
+    percentages = get_stored_tolerances(percentages)
     account_name_number_list_portfolio = list(
         set(d['AccountNumberOrName'] for d in get_consolidated_filtered_data() for val in d))
 
@@ -18,13 +17,13 @@ def reset_percentages(window):
             missing_percent = {'account': account,
                                'symbol': missing_symbol}
             percentages.append(missing_percent)
-    account_numbers = list(set(d['account'] for d in percentages for val in d))
-    account_symbol_entry_dictionary = {}
-    for account_number in account_numbers:
-        account_percantages = [d for d in percentages if d['account'] == account_number]
-        account_symbol = list(set(d['account'] for d in percentages for val in d))
-    current_row, percent_label_list = create_percentage_label_grid(window, percentages)
-    create_account_symbol_entry(current_row, window, percentages)
+    current_row, percent_label_list, account_symbol_entry_dictionary = create_percentage_label_grid(window, percentages)
+
+
+def get_stored_tolerances(percentages):
+    with open(PERCENT_STORE, mode='r') as infile:
+        percentages = percentages + list(DictReader(infile, delimiter=','))
+    return percentages
 
 
 def get_missing_symbol_list(percentages, account):
@@ -45,12 +44,15 @@ def get_missing_account_list(percentages):
 
 def create_percentage_label_grid(window, percentages):
     percent_label_list = []
+    account_symbol_entry_dictionary = {}
     current_row = 0
     for percents in percentages:
         percent_label = create_account_symbol_from_percent_store_label(percents, current_row, window)
+        percent_entry = create_account_symbol_entry(current_row, window, percents)
         current_row = current_row + 1
+        account_symbol_entry_dictionary.update(percent_entry)
         percent_label_list.append(percent_label)
-    return current_row, percent_label_list
+    return current_row, percent_label_list, account_symbol_entry_dictionary
 
 
 def create_account_symbol_from_percent_store_label(percents, current_row, window):
@@ -65,13 +67,10 @@ def create_account_symbol_from_percent_store_label(percents, current_row, window
     return account_symbol_label
 
 
-def create_account_symbol_entry(current_row, window, percentages):
-    account_numbers = list(set(d['account'] for d in percentages for val in d))
-    account_symbol_entry_dictionary = {}
-    for account_number in account_numbers:
-        account_percantages = [d for d in percentages if d['account'] == account_number]
-        account_symbol = list(set(d['account'] for d in percentages for val in d))
-        account_symbol_entry = Entry(window, font=('calibre', 10, 'normal'))
-        account_symbol_entry.grid(column=1, row=current_row)
-        account_symbol_entry_dictionary = {f'{account_number}_{symbol}': account_symbol_entry}
+def create_account_symbol_entry(current_row, window, percents):
+    account = percents.get('account')
+    symbol = percents.get('symbol')
+    account_symbol_entry = Entry(window, font=('calibre', 10, 'normal'))
+    account_symbol_entry.grid(column=1, row=current_row)
+    account_symbol_entry_dictionary = {f'{account}_{symbol}': account_symbol_entry}
     return account_symbol_entry_dictionary
