@@ -5,14 +5,12 @@ from program_variables import get_consolidated_filtered_data
 
 
 def create_percentage_store(window):
-    page_elements = {}
     current_row = 0
 
     label_get_percentages = Label(window,
                                   text=f'Fund Percentages Do Not Exist Please Enter Them. Example 49.5',
                                   width=100, height=4,
                                   fg="blue")
-    page_elements['label_get_percentages'] = label_get_percentages
     label_get_percentages.grid(column=0, row=current_row)
 
     current_row = current_row + 1

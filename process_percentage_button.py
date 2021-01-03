@@ -2,21 +2,24 @@ from csv import DictWriter
 from my_utils import destroy
 
 from program_variables import PERCENT_STORE
+from percentage_check_page import create_percent_check_page
 
 
-def validate_percentages(entry_dict, label_dict, label_get_percentages, button_continue):
+def validate_percentages(window, entry_dict, label_dict, label_get_percentages, button_continue):
     list_of_percentages = []
     field_names = ['account', 'symbol', 'percentage']
     sum_percentages_per_account = {}
     for key, value in entry_dict.items():
         account, percentage = format_percent_store(key, list_of_percentages, value)
-        sum_percentages_per_account[account] = sum_percentages_per_account.get(account, 0.0) + percentage
+        sum_percentages_per_account[account] = sum_percentages_per_account.get(account,
+                                                                               0.0) + percentage
     mis_match_percentages_text = percentage_sum_check(sum_percentages_per_account)
     if bool(mis_match_percentages_text):
         label_get_percentages.config(text=mis_match_percentages_text)
     else:
         write_percent_store_file(field_names, list_of_percentages)
-        destroy(button_continue, entry_dict, label_dict)
+        destroy(button_continue, entry_dict, label_dict, label_get_percentages)
+        create_percent_check_page(window)
 
 
 def format_percent_store(key, list_of_percentages, value):
