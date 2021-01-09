@@ -1,7 +1,8 @@
 from tkinter import Label, Entry, Button
 from csv import DictReader
 
-from StartAndGlobalUtils.program_variables import PERCENT_STORE, get_consolidated_filtered_data
+from StartAndGlobalUtils.program_variables import get_consolidated_filtered_data, \
+    get_percentage_data
 from GetPercentages.process_percentage_button import validate_percentages
 
 
@@ -28,8 +29,7 @@ def reset_percentages(window):
 
 
 def percent_entry_form(current_row, window):
-    percentages = []
-    percentages = get_stored_tolerances(percentages)
+    percentages = get_percentage_data()
     account_name_number_list_portfolio = list(
         set(d['AccountNumberOrName'] for d in get_consolidated_filtered_data() for val in d))
     for account in account_name_number_list_portfolio:
@@ -42,12 +42,6 @@ def percent_entry_form(current_row, window):
     current_row, percent_label_list, account_symbol_entry_dictionary = \
         create_percentage_submission_grid(window, percentages, current_row)
     return account_symbol_entry_dictionary, current_row, percent_label_list
-
-
-def get_stored_tolerances(percentages):
-    with open(PERCENT_STORE, mode='r') as infile:
-        percentages = percentages + list(DictReader(infile, delimiter=','))
-    return percentages
 
 
 def get_missing_symbol_list(percentages, account):

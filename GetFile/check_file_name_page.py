@@ -29,7 +29,9 @@ def check_file_name_page(window):
 
 def next_add_amount_page(page_element_dict, window):
     destroy(page_element_dict)
+    from GetAndCleanData.process_data import process_data
     from AddAmount.add_amount_screen import added_amount_page
+    process_data()
     added_amount_page(window)
 
 
