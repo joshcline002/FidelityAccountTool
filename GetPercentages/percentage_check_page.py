@@ -2,7 +2,7 @@ from tkinter import Button, Label
 from csv import DictReader
 
 from StartAndGlobalUtils.my_utils import destroy
-from StartAndGlobalUtils.program_variables import PERCENT_STORE
+from StartAndGlobalUtils.program_variables import get_percentage_data
 
 
 def create_percent_check_page(window):
@@ -25,9 +25,7 @@ def create_percent_check_page(window):
 
 
 def create_percentage_label_grid(window):
-    percentages = []
-    with open(PERCENT_STORE, mode='r') as infile:
-        percentages = percentages + list(DictReader(infile, delimiter=','))
+    percentages = get_percentage_data()
     percent_label_list = []
     current_row = 0
     for percents in percentages:

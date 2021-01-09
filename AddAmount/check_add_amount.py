@@ -33,5 +33,5 @@ def next_added_amount_page(page_element_dict, window):
 
 def next_process_data(page_element_dict, window):
     destroy(page_element_dict)
-    from GetAndCleanData.process_data import process_data
-    process_data(window)
+    from GetPercentages.check_and_set_percentages import check_and_set_percentage
+    check_and_set_percentage(window)(window)
