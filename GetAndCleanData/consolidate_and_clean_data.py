@@ -5,6 +5,7 @@ def get_consolidated_data_filtered_down(cleaned_list_of_fidelity_data):
     for fidelity_data in cleaned_list_of_fidelity_data:
         current_account_number = fidelity_data['AccountNameNumber']
         current_symbol = fidelity_data['Symbol']
+        percent_of_account = fidelity_data['PercentOfAccount (Percent)']
 
         aggregate_quantity = aggregate_quantity_and_create_key(consolidate_and_filter_columns,
                                                                current_account_number, current_symbol,
@@ -30,7 +31,8 @@ def get_consolidated_data_filtered_down(cleaned_list_of_fidelity_data):
                                  'CurrentValue': consolidate_and_filter_columns.get(
                                      f'{account_name_number}_{symbol}_CurrentValue', 0.0),
                                  'LastPrice': consolidate_and_filter_columns.get(
-                                     f'{account_name_number}_{symbol}_CurrentPrice', 0.0)}
+                                     f'{account_name_number}_{symbol}_CurrentPrice', 0.0),
+                                 'PercentOfAccount': percent_of_account}
             output.append(output_dictionary)
     return output
 

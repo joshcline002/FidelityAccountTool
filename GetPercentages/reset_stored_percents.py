@@ -1,8 +1,8 @@
 from tkinter import Label, Entry, Button
 from csv import DictReader
 
-from program_variables import PERCENT_STORE, get_consolidated_filtered_data
-from process_percentage_button import validate_percentages
+from StartAndGlobalUtils.program_variables import PERCENT_STORE, get_consolidated_filtered_data
+from GetPercentages.process_percentage_button import validate_percentages
 
 
 def reset_percentages(window):

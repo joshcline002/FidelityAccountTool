@@ -1,7 +1,7 @@
 from tkinter import Button, Label, Frame
 
-from my_utils import destroy, correct_incorrect_button_setup
-from program_variables import get_file_name
+from StartAndGlobalUtils.my_utils import destroy, correct_incorrect_button_setup
+from StartAndGlobalUtils.program_variables import get_file_name
 
 
 def check_file_name_page(window):
@@ -29,11 +29,11 @@ def check_file_name_page(window):
 
 def next_add_amount_page(page_element_dict, window):
     destroy(page_element_dict)
-    from add_amount_screen import added_amount_page
+    from AddAmount.add_amount_screen import added_amount_page
     added_amount_page(window)
 
 
 def next_get_file_name_page(page_element_dict, window):
     destroy(page_element_dict)
-    from get_file_name import get_file_name_page
+    from GetFile.get_file_name import get_file_name_page
     get_file_name_page(window)

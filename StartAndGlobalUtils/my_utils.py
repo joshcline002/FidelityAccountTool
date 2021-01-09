@@ -1,6 +1,6 @@
 from os import path, mkdir
 
-from program_variables import STORE_PATH
+from StartAndGlobalUtils.program_variables import STORE_PATH
 
 
 def destroy(*args):

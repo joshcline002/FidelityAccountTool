@@ -1,7 +1,7 @@
 from tkinter import Label, Button, Entry
-from process_percentage_button import validate_percentages
+from GetPercentages.process_percentage_button import validate_percentages
 
-from program_variables import get_consolidated_filtered_data
+from StartAndGlobalUtils.program_variables import get_consolidated_filtered_data
 
 
 def create_percentage_store(window):

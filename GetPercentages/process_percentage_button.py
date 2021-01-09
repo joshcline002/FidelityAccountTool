@@ -1,8 +1,8 @@
 from csv import DictWriter
-from my_utils import destroy
+from StartAndGlobalUtils.my_utils import destroy
 
-from program_variables import PERCENT_STORE
-from percentage_check_page import create_percent_check_page
+from StartAndGlobalUtils.program_variables import PERCENT_STORE
+from GetPercentages.percentage_check_page import create_percent_check_page
 
 
 def validate_percentages(window, entry_dict, label_dict, label_get_percentages, button_continue):
