@@ -1,6 +1,6 @@
 from tkinter import Button, Label, Frame
-from my_utils import correct_incorrect_button_setup, destroy
-from program_variables import get_add_amount
+from StartAndGlobalUtils.my_utils import correct_incorrect_button_setup, destroy
+from StartAndGlobalUtils.program_variables import get_add_amount
 
 
 def check_add_amount(window):
@@ -27,11 +27,11 @@ def check_add_amount(window):
 
 def next_added_amount_page(page_element_dict, window):
     destroy(page_element_dict)
-    from add_amount_screen import added_amount_page
+    from AddAmount.add_amount_screen import added_amount_page
     added_amount_page(window)
 
 
 def next_process_data(page_element_dict, window):
     destroy(page_element_dict)
-    from process_data import process_data
+    from GetAndCleanData.process_data import process_data
     process_data(window)

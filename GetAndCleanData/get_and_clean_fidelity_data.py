@@ -1,7 +1,7 @@
 from tkinter import re
 from csv import DictReader
 
-from program_variables import get_file_name
+from StartAndGlobalUtils.program_variables import get_file_name
 
 
 def get_fidelity_data():

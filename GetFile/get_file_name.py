@@ -1,6 +1,6 @@
 from tkinter import Button, filedialog
-from my_utils import destroy
-from program_variables import set_file_name
+from StartAndGlobalUtils.my_utils import destroy
+from StartAndGlobalUtils.program_variables import set_file_name
 
 
 def get_file_name_page(window):
@@ -18,5 +18,5 @@ def get_file_name(page_element_dict, window):
                                              title="Select a csv File downloaded from Fidelity positions.",
                                              filetypes=(("CSV files", "*.csv*"), ("all files", "*.*"))))
     destroy(page_element_dict)
-    from check_file_name_page import check_file_name_page
+    from GetFile.check_file_name_page import check_file_name_page
     check_file_name_page(window)

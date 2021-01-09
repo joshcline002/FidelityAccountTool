@@ -1,6 +1,6 @@
 from tkinter import Label, Entry, Button
-from my_utils import destroy
-from program_variables import set_add_amount
+from StartAndGlobalUtils.my_utils import destroy
+from StartAndGlobalUtils.program_variables import set_add_amount
 
 
 def added_amount_page(window):
@@ -25,7 +25,7 @@ def added_amount_page(window):
 def next_check_add_amount(page_element_dict, window):
     set_add_amount(get_add_amount(page_element_dict['added_dollars_entry']))
     destroy(page_element_dict)
-    from check_add_amount import check_add_amount
+    from AddAmount.check_add_amount import check_add_amount
     check_add_amount(window)
 
 

@@ -1,8 +1,8 @@
 from tkinter import Tk, Button
 
 
-from my_utils import destroy
-from get_file_name import get_file_name_page
+from StartAndGlobalUtils.my_utils import destroy
+from GetFile.get_file_name import get_file_name_page
 
 
 def initial_window():
@@ -10,6 +10,7 @@ def initial_window():
     window.title('Re-allocate')
     window.geometry("500x500")
     window.config(background="white")
+    # window.attributes('-fullscreen', True)
     return window
 
 
