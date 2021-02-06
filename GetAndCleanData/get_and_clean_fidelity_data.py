@@ -23,13 +23,6 @@ def get_fidelity_data():
 
 
 def clean_value_and_key(key, value):
-    cleaned_key = re.sub('[^A-Za-z0-9]+', '', key)
-    cleaned_value = value
-    if '$' in cleaned_value:
-        cleaned_key = f'{cleaned_key} (In Dollars)'
-        cleaned_value = cleaned_value.replace('$', '')
-    if '%' in cleaned_value:
-        if 'percent' not in cleaned_value.lower():
-            cleaned_key = f'{cleaned_key} (Percent)'
-        cleaned_value = cleaned_value.replace('%', '')
+    cleaned_key = re.sub(' ', '', re.sub('[^A-Za-z0-9]+', '', key))
+    cleaned_value = value.replace('%', '').replace('$', '') or None
     return cleaned_key, cleaned_value

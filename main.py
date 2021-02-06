@@ -4,9 +4,9 @@ from StartAndGlobalUtils.initial_screen import initial_window, initial_elements
 
 def main():
     create_path_for_code()
-    window = initial_window()
+    root, window = initial_window()
     initial_elements(window)
-    window.mainloop()
+    root.mainloop()
 
 
 main()

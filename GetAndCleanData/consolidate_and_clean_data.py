@@ -9,7 +9,7 @@ def set_consolidated_data_filtered_down(cleaned_list_of_fidelity_data):
     for fidelity_data in cleaned_list_of_fidelity_data:
         current_account_number = fidelity_data['AccountNameNumber']
         current_symbol = fidelity_data['Symbol']
-        percent_of_account = fidelity_data['PercentOfAccount (Percent)']
+        percent_of_account = fidelity_data['PercentOfAccount']
 
         aggregate_quantity = aggregate_quantity_and_create_key(consolidate_and_filter_columns,
                                                                current_account_number,
@@ -33,11 +33,11 @@ def set_consolidated_data_filtered_down(cleaned_list_of_fidelity_data):
             output_dictionary = {'AccountNumberOrName': account_name_number,
                                  'Symbol': symbol,
                                  'Quantity': consolidate_and_filter_columns.get(
-                                     f'{account_name_number}_{symbol}_Quantity', 0.0),
+                                     f'{account_name_number}_{symbol}_Quantity') or 0.0,
                                  'CurrentValue': consolidate_and_filter_columns.get(
-                                     f'{account_name_number}_{symbol}_CurrentValue', 0.0),
+                                     f'{account_name_number}_{symbol}_CurrentValue') or 0.0,
                                  'LastPrice': consolidate_and_filter_columns.get(
-                                     f'{account_name_number}_{symbol}_CurrentPrice', 0.0),
+                                     f'{account_name_number}_{symbol}_CurrentPrice') or 0.0,
                                  'PercentOfAccount': percent_of_account}
             output.append(output_dictionary)
     set_consolidated_filtered_data(output)
@@ -53,8 +53,12 @@ def aggregate_quantity_and_create_key(consolidate_and_filter_columns, current_ac
                                       current_symbol,
                                       fidelity_data):
     current_quantity = consolidate_and_filter_columns.get(
-        f'{current_account_number}_{current_symbol}_Quantity', 0.0)
-    fidelity_quantity = float(fidelity_data.get('Quantity', 0.0))
+        f'{current_account_number}_{current_symbol}_Quantity') or 0.0
+    try:
+        fidelity_quantity = float(fidelity_data.get('Quantity') or 0.0)
+    except:
+        print(f'What? : {fidelity_data}')
+        raise
     quantity_key = f'{current_account_number}_{current_symbol}_Quantity'
     consolidated_quantity = current_quantity + fidelity_quantity
     aggregate = {quantity_key: consolidated_quantity}
@@ -65,8 +69,8 @@ def aggregate_value_and_create_key(consolidate_and_filter_columns, current_accou
                                    current_symbol,
                                    fidelity_data):
     value_key = f'{current_account_number}_{current_symbol}_CurrentValue'
-    current_value = consolidate_and_filter_columns.get(value_key, 0.0)
-    fidelity_value = float(fidelity_data.get('CurrentValue (In Dollars)', 0.0))
+    current_value = consolidate_and_filter_columns.get(value_key) or 0.0
+    fidelity_value = float(fidelity_data.get('CurrentValue') or 0.0)
     consolidated_value = current_value + fidelity_value
     aggregate = {value_key: consolidated_value}
     return aggregate
